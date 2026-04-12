@@ -7,12 +7,11 @@ class ClarkeWrightSolver:
         self.nodes = nodes
         self.fleet = fleet
         self.dist_matrix = dist_matrix
-        self.time_matrix = time_matrix / 60.0 # Quy đổi thời gian ORS (giây) sang phút
+        self.time_matrix = time_matrix / 60.0 # Quy đổi thời gian (giây) sang phút
         self.n_nodes = len(nodes)
         self.routes = [[0, i, 0] for i in range(1, self.n_nodes)]
 
     def _is_valid(self, route: List[int]) -> bool:
-        # CHECK TẢI TRỌNG VÀ THỜI GIAN
         if sum(self.nodes[n].demand for n in route) > self.fleet.max_capacity:
             return False
 
@@ -20,29 +19,20 @@ class ClarkeWrightSolver:
         for i in range(len(route) - 1):
             curr_node = route[i]
             next_node = route[i+1]
-
             current_time += self.time_matrix[curr_node][next_node]
-
             waiting_time = 0.0
 
-            # XỬ LÝ ĐẾN SỚM VÀ THỜI GIAN CHỜ
             if current_time < self.nodes[next_node].ready_time:
-                # TÍNH THỜI GIAN CHỜ
                 waiting_time = self.nodes[next_node].ready_time - current_time
-                # CẬP NHẬT THỜI GIAN HIỆN TẠI SAU KHI CHỜ
                 current_time = self.nodes[next_node].ready_time
 
-            # NẾU PHẢI CHỜ QUÁ 60 PHÚT -> HỦY GỘP TUYẾN
             if waiting_time > 60.0:  
                 return False
-
-            # NẾU ĐẾN TRỄ -> HỦY GỘP TUYẾN
             if current_time > self.nodes[next_node].due_date:
                 return False
-
             current_time += self.nodes[next_node].service_time
-
         return True
+
     def run_optimization(self) -> List[List[int]]:
         savings = []
         for i in range(1, self.n_nodes):
@@ -61,7 +51,6 @@ class ClarkeWrightSolver:
             
             if r_i != -1 and r_j != -1 and r_i != r_j:
                 new_route = self.routes[r_i][:-1] + self.routes[r_j][1:]
-                # KIỂM TRA RÀNG BUỘC TRƯỚC KHI GỘP
                 if self._is_valid(new_route):
                     self.routes[r_i] = new_route
                     self.routes.pop(r_j)
