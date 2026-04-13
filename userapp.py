@@ -75,7 +75,7 @@ def draw_route_map_ui(nodes, route_geometries):
 # GIAO DIỆN CHÍNH
 # ==========================================
 def main():
-    st.set_page_config(page_title="GR4 - Last-Mile Delivery", layout="wide", initial_sidebar_state="collapsed")
+    st.set_page_config(page_title="GR4 - LAST-MILE DELIVERY", layout="wide", initial_sidebar_state="collapsed")
     
     # 1. Tải CSS
     load_local_css("style.css")
@@ -86,35 +86,45 @@ header[data-testid="stHeader"] {
     display: none !important;
 }
 
-/* Căn chỉnh container chính */
+/* Căn chỉnh lại khoảng cách trên dưới của trang */
 div[data-testid="stMainBlockContainer"], .block-container {
     padding-top: 20px !important; 
-    padding-bottom: 100px !important; /* Chừa khoảng trống phía dưới để không bị footer che mất */
+    padding-bottom: 0px !important; 
 } 
 
-/* Ép footer cố định ở dưới cùng màn hình */
+/* Cấu hình Footer nằm ở cuối trang và cuộn theo nội dung */
 .custom-footer {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    padding: 20px 40px !important;
+    /* Ép tràn viền 100% màn hình dù đang ở trong container có padding */
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    
+    /* Khoảng cách và trang trí */
+    margin-top: 60px !important; /* Tạo khoảng cách với bảng KPI phía trên */
+    padding: 25px 5rem !important; /* Padding 5rem 2 bên cho cân đối với nội dung wide */
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
     border-top: 3px solid #114B32 !important;
     box-shadow: 0 -3px 20px rgba(17,75,50,0.15) !important;
-    z-index: 99999 !important; /* Đảm bảo footer luôn nổi lên trên cùng */
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Định dạng thêm cho các icon mạng xã hội để nó nằm ngang đẹp hơn */
+/* Định dạng các icon mạng xã hội */
 .footer-socials a {
     color: #114B32;
-    margin-left: 15px;
-    font-size: 20px;
+    margin-left: 20px;
+    font-size: 22px;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-socials a:hover {
+    color: #0d3825;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -158,7 +168,7 @@ div[data-testid="stMainBlockContainer"], .block-container {
     col_logo, col_space, col_avatar, col_btn = st.columns([5, 3, 0.8, 1.5], vertical_alignment="center")
 
     with col_logo:
-        st.markdown("<h2 style='color: #114B32; margin: 0; padding-top: 5px;'>Gr4 - Last-Mile Delivery</h2>", unsafe_allow_html=True)
+        st.markdown("<h2 style='color: #114B32; margin: 0; padding-top: 5px;'>GR4 - LAST-MILE DELIVERY</h2>", unsafe_allow_html=True)
 
     with col_avatar:
         st.markdown(f'''
