@@ -45,6 +45,12 @@
                 "locations": 10,
                 "distance": 30.59,
                 "cost": "73,406 đ"
+            },
+            {
+                "time": "2026-04-13 19:08:40",
+                "locations": 10,
+                "distance": 30.59,
+                "cost": "73,406 đ"
             }
         ]
     },
@@ -73,5 +79,11 @@
                 "cost": "73,406 đ"
             }
         ]
+    },
+    "xuantam@gmail.com": {
+        "name": "Xuan Tam",
+        "password": "123456789",
+        "avatar": null,
+        "history": []
     }
 }
